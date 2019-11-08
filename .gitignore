@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/linux,python,pycharm,pycharm+all,pycharm+iml
-# Edit at https://www.gitignore.io/?templates=linux,python,pycharm,pycharm+all,pycharm+iml
+# Created by https://www.gitignore.io/api/venv,linux,python,pycharm,pycharm+all,pycharm+iml
+# Edit at https://www.gitignore.io/?templates=venv,linux,python,pycharm,pycharm+all,pycharm+iml
 
 ### Linux ###
 *~
@@ -314,4 +314,23 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# End of https://www.gitignore.io/api/linux,python,pycharm,pycharm+all,pycharm+iml
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-selfcheck.json
+
+# End of https://www.gitignore.io/api/venv,linux,python,pycharm,pycharm+all,pycharm+iml
