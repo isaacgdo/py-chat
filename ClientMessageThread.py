@@ -32,8 +32,8 @@ class ClientMessageThread(threading.Thread):
             elif command[0:7] == 'ajuda()':
                 help()
             elif command[0:6] == 'sair()':
-                # enviar pro server mensagem de sair
-                # encerrar thread de recv
+                # TODO enviar pro server mensagem de sair e fechar socket
+                # TODO encerrar thread de recv
                 self.conn.close()  # encerramento do socket do cliente
                 break
             else:

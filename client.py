@@ -12,12 +12,26 @@ def valid_username(user) -> str:
 
 
 print('Bem-vindo à sala de bate-papo!')
-print('Para começar, informe um nome de usuário')
+print('Para começar, informe um nome de usuário.')
 
-""" Solicita um username ao entrar na sala """
+""" Solicita um username ao entrar na sala e valida se:
+    1. nome de usuário está em branco
+    2. nome de usuário ultrapassa tamanho máximo definido no protocolo
+    3. nome de usuário é reservado
+"""
 username = ''
-while username == '':
+while True:
     username = input('Nome de usuário: ')
+    if username == '':
+        pass
+    elif len(username) >= 15:
+        print('Nome de usuário muito extenso (máx: 15 caracteres)')
+    elif username == 'all' or username == 'server':
+        print('Nome de usuário inválido')
+        # TODO condição 4 - comparar com lista de users que já estão no server
+    else:
+        break
+
 username = valid_username(username)
 clientSocket.send(username.encode('utf-8'))  # envia o username do cliente para o servidor
 print("Bem-vindo, {}!".format(username))
