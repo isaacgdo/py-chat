@@ -34,9 +34,9 @@ while True:
         break
 
 """ Envia o username do cliente para o servidor """
+print("Bem-vindo, {}!".format(username))
 username = create_send_message('entrar({})'.format(valid_username(username)))
 clientSocket.send(username.encode('utf-8'))
-print("Bem-vindo, {}!".format(username))
 
 """ Dispara thread de recebimentos de mensagem do servidor """
 recv_thread = ClientMessageThread(clientSocket)

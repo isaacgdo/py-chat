@@ -2,7 +2,7 @@ import re
 
 
 def create_send_message(action) -> str:
-    """ Função que formata e valida envio de mensagens """
+    """ Função que formata e valida envio de mensagens para o servidor """
     m_len = 26
     username = 'all\0------------'
     command = 'message\0'
@@ -15,12 +15,13 @@ def create_send_message(action) -> str:
     elif action == 'lista()':
         username = '----------------'
         command = 'lista\0--'
+    # TODO extrair username e mensagem com regex
     elif action[0:8] == 'privado(' and action[-1] == ')':
         username = action[8:-1]
     elif action == 'sair()':
         command = 'sair\0---'
     else:
-        if len(action) > 73:
+        if len(action) > 73 or len(action) < 1:
             return ''
         m_len += len(action)
         data = action
