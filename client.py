@@ -1,5 +1,6 @@
 from socket import *
 from ClientMessageThread import *
+from ClientProtocol import create_send_message
 
 serverName = 'localhost'  # ip do servidor
 serverPort = 65000  # porta a se conectar
@@ -32,8 +33,9 @@ while True:
     else:
         break
 
-username = valid_username(username)
-clientSocket.send(username.encode('utf-8'))  # envia o username do cliente para o servidor
+""" Envia o username do cliente para o servidor """
+username = create_send_message('entrar({})'.format(valid_username(username)))
+clientSocket.send(username.encode('utf-8'))
 print("Bem-vindo, {}!".format(username))
 
 """ Dispara thread de recebimentos de mensagem do servidor """
