@@ -29,19 +29,20 @@ while True:
         print('Nome de usuário muito extenso (máx: 15 caracteres)')
     elif username == 'all' or username == 'server':
         print('Nome de usuário inválido')
-        # TODO condição 4 - comparar com lista de users que já estão no server
+        # TODO condição 4
     else:
         break
 
 """ Envia o username do cliente para o servidor """
 print("Bem-vindo, {}!".format(username))
+nick = username
 username = create_send_message('entrar({})'.format(valid_username(username)))
 clientSocket.send(username.encode('utf-8'))
 
 """ Dispara thread de recebimentos de mensagem do servidor """
-recv_thread = ClientMessageThread(clientSocket)
+recv_thread = ClientMessageThread(clientSocket, nick)
 recv_thread.start()
 
 """ Dispara thread de envio de mensagens para o servidor de mensagem do servidor """
-send_thread = ClientMessageThread(clientSocket, thr_type='send')
+send_thread = ClientMessageThread(clientSocket, nick, thr_type='send')
 send_thread.start()

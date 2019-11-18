@@ -1,15 +1,16 @@
 from socket import *
 import threading
-from ClientProtocol import create_send_message
+from ClientProtocol import create_send_message, recv_from_server
 
 
 class ClientMessageThread(threading.Thread):
     """ Esta classe cria thread de execução para recepção ou envio
     de mensagens entre cliente e servidor """
 
-    def __init__(self, conn, thr_type='recv'):
+    def __init__(self, conn, username, thr_type='recv'):
         threading.Thread.__init__(self)
         self.conn = conn
+        self.username = username
         self.thr_type = thr_type
 
     def run(self):
@@ -25,20 +26,24 @@ class ClientMessageThread(threading.Thread):
                 self.options()
             else:
                 data = create_send_message(command)
-                print('Mensagem Inválida!') if data == '' else self.conn.send(data.encode('utf-8'))
 
                 if command[0:6] == 'sair()':
-                    # TODO encerrar thread de recv
+                    data = create_send_message('sair({})'.format(self.username))
+                    self.conn.send(data.encode('utf-8'))
                     self.conn.close()  # encerramento do socket do cliente
                     break
+
+                print('Mensagem Inválida!') if data == '' else self.conn.send(data.encode('utf-8'))
 
     def recv(self):
         """ Método responsável pelo recebimento das mensagens do cliente """
         self.options()
         while True:
             try:
-                message = self.conn.recv(1024)
-                print(message.decode('utf-8'))
+                message = self.conn.recv(99).decode('utf-8')
+                print(recv_from_server(message))
+                if message[18:message.index('\0', 18)] == 'sair':
+                    break
             except RuntimeError as e:
                 self.conn.close()
                 print(e, 'O recebimento falhou.')
